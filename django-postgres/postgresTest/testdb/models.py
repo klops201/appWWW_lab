@@ -24,7 +24,7 @@ class Osoba(models.Model):
     imie = models.CharField(max_length=60, null=False, blank=False)
     nazwisko = models.CharField(max_length=60, null=False, blank=False)
     plec = models.IntegerField(choices = PLEC.choices)
-    stanowisko =models.ForeignKey(Stanowisko, null=True, blank=True, on_delete=models.SET_NULL)
+    stanowisko = models.ForeignKey(Stanowisko, null=True, blank=True, on_delete=models.SET_NULL)
     data_dodania = models.DateField( auto_now_add = True)
 
     class Meta:
