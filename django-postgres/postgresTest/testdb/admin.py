@@ -4,7 +4,7 @@ from .models import Osoba, Stanowisko
 class OsobaAdmin(admin.ModelAdmin):
     readonly_fields = ['data_dodania']
     list_display = ['imie','nazwisko', 'plec', 'stanowisko']
-    list_filter = ['stanowisko', 'data_dodania']
+    list_filter = ['stanowisko']
 
 admin.site.register(Osoba, OsobaAdmin)
 

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Osoba, Stanowisko
+from datetime import date
 
 class OsobaSerializer(serializers.Serializer):
 
@@ -17,6 +18,26 @@ class OsobaSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         return Osoba.objects.create(**validated_data)
+
+
+
+    def validate_imie(self, value):
+
+        if not value.isalpha():
+            raise serializers.ValidationError(
+                "Nazwa osoby powinna składać się tylko z liter!",
+            )
+        return value
+
+
+    # def validate_data_dodania(self, value):
+    #     # if not (value <= date.today()):
+    #     if not (value == date.today()):
+    #         raise serializers.ValidationError(
+    #             "data jest z przyszłości!",
+    #         )
+    #     return value
+
 
 
     def update(self, instance, validated_data):

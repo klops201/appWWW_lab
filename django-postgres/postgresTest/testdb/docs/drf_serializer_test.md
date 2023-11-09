@@ -19,7 +19,7 @@ o=stanowisko_kierowcy)
 b'{"imie":"Adam","nazwisko":"Kowalski","plec":1,"data_dodania":null,"stanowisko":1}'
 >>> import io
 >>> stream = io.BytesIO(content)
->>> data = JSONParser().parse(stream)import io
+>>> data = JSONParser().parse(stream)
 >>> deserializer = OsobaSerializer(data=data)
 >>> deserializer.is_valid()
 True

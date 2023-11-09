@@ -1,9 +1,8 @@
 from django.urls import path
-#from .views import StanowiskoListView
 from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    #path('stanowisko/', StanowiskoListView.as_view(), name='stanowisko-list'),
-
+    path('osoby/', views.osoba_list),
+    path('osoby/<int:pk>/', views.osoba_detail),
 ]

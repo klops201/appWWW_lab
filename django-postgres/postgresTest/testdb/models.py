@@ -25,7 +25,7 @@ class Osoba(models.Model):
     nazwisko = models.CharField(max_length=60, null=False, blank=False)
     plec = models.IntegerField(choices = PLEC.choices)
     stanowisko = models.ForeignKey(Stanowisko, null=True, blank=True, on_delete=models.SET_NULL)
-    data_dodania = models.DateField( auto_now_add = True)
+    data_dodania = models.DateField(default=datetime.date.today)
 
     class Meta:
         ordering = ['nazwisko']
