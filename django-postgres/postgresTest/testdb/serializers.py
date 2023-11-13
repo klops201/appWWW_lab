@@ -54,8 +54,14 @@ class OsobaSerializer(serializers.Serializer):
 
 
 
-class StanowiskoModelSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Stanowisko
-        fields = ['nazwa', 'opis']
-        #read_only_fields = ['id']
+class StanowiskoSerializer(serializers.Serializer):
+
+    nazwa = serializers.CharField(required=True)
+
+    opis = serializers.CharField(required=True)
+
+    def update(self, instance, validated_data):
+        instance.nazwa = validated_data.get('nazwa', instance.nazwa)
+        instance.opis = validated_data.get('opis', instance.opis)
+        instance.save()
+        return instance

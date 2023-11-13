@@ -1,6 +1,6 @@
 >>> from rest_framework.renderers import JSONRenderer
 >>> from rest_framework.parsers import JSONParser
->>> from testdb.models import Osoba, Stanowisko
+>>> rom testdb.models import Osoba, Stanowiskof
 >>> from testdb.serializers import OsobaSerializer
 >>> osoba = Osoba(imie='Adam', nazwisko='Kowalski', plec=Osoba.PLEC.Mężczyzna, stanowisk
 o=kierowca)
