@@ -1,11 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import generics
 from .models import Osoba, Stanowisko
 from .serializers import StanowiskoSerializer, OsobaSerializer
+
 
 
 def index(request):
@@ -18,9 +21,10 @@ def osoba_list(request):
     Lista wszystkich obiektów modelu Person.
     """
     if request.method == 'GET':
-        persons = Osoba.objects.all()
+        persons = Osoba.objects.filter(wlasciciel=request.user)
         serializer = OsobaSerializer(persons, many=True)
         return Response(serializer.data)
+        permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 
@@ -36,7 +40,7 @@ def stanowisko_list(request):
 
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET'])
 def osoba_detail(request, pk):
 
     """
@@ -57,7 +61,18 @@ def osoba_detail(request, pk):
         serializer = OsobaSerializer(person)
         return Response(serializer.data)
 
-    elif request.method == 'PUT':
+@api_view(['PUT', 'DELETE'])
+@authentication_classes([SessionAuthentication, BasicAuthentication])
+@permission_classes([IsAuthenticated])
+def osoba_update_delete(request, pk):
+
+
+    try:
+        person = Osoba.objects.get(pk=pk)
+    except Osoba.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
         serializer = OsobaSerializer(person, data=request.data)
         if serializer.is_valid():
             serializer.save()

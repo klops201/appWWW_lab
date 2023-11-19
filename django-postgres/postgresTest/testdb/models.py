@@ -26,6 +26,7 @@ class Osoba(models.Model):
     plec = models.IntegerField(choices = PLEC.choices)
     stanowisko = models.ForeignKey(Stanowisko, null=True, blank=True, on_delete=models.SET_NULL)
     data_dodania = models.DateField(default=datetime.date.today)
+    wlasciciel = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['nazwisko']

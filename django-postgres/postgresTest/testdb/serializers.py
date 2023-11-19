@@ -14,6 +14,8 @@ class OsobaSerializer(serializers.Serializer):
 
     data_dodania = serializers.DateField(read_only=True)
 
+    wlasciciel = serializers.ReadOnlyField(source='wlasciciel.username')
+
     stanowisko = serializers.PrimaryKeyRelatedField(queryset=Stanowisko.objects.all())
 
     def create(self, validated_data):
